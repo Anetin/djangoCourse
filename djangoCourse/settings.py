@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,7 +48,8 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+    'captcha' #yanzhengma
 ]
 AUTH_USER_MODEL = "users.UserProfile"
 
@@ -140,3 +144,10 @@ STATIC_ROOT = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,u'media')
+
+EMAIL_HOST = "smtp.163.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "13262658232@163.com"
+EMAIL_HOST_PASSWORD = "password123"
+EMAIL_USE_TLS = False
+EMAIL_FROM = "13262658232@163.com"
