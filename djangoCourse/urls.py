@@ -16,20 +16,22 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.views.static import serve
+
 import xadmin
 # from django.conf.urls import url
 # from django.contrib import admin
 
-from users.views import logout_view, LoginView, RegisterView, ActiveUserView
+import users.url
+from djangoCourse import settings
 
 from message.views import getform
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^form/$', getform, name='go_form'),
-    url(r'^$', TemplateView.as_view(template_name='index.html'),name='index'),
-    url(r'^login/$', LoginView.as_view() ,name='login'),
-    url(r'^logout/$', logout_view ,name='logout'),
-    url(r'^register/$', RegisterView.as_view() ,name='register'),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
+
+    url(r'^user/', include(users.url)),
     url(r'^captcha/', include('captcha.urls')),
-    url(r'^activate/(?P<active_code>.*)/$',ActiveUserView.as_view() ,name='activeUser'),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]

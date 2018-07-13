@@ -21,6 +21,7 @@ class EmailVerifyRecordAdmin(object):
     search_fields = ['code', 'email', 'send_type']
     list_filter = ['send_time']
 
+
 class BannelAdmin(object):
     list_display = ['title', 'image', 'url', 'index', 'add_time']
     search_fields = ['title', 'image', 'url', 'index']

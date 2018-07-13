@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_
 """
 Django settings for djangoCourse project.
 
@@ -29,7 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomBackend',
@@ -49,15 +49,17 @@ INSTALLED_APPS = [
     'operation',
     'xadmin',
     'crispy_forms',
-    'captcha' #yanzhengma
+    'captcha', #yanzhengma
+    'corsheaders'
 ]
 AUTH_USER_MODEL = "users.UserProfile"
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -130,6 +132,8 @@ USE_I18N = True
 
 USE_L10N = True
 
+
+#  use local time ; 如果为ture 保存数据库时会保存为UTC时间
 USE_TZ = False
 
 
@@ -142,8 +146,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = '/static/'
 
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,u'media')
+MEDIA_URL = '/media/'
 
 EMAIL_HOST = "smtp.163.com"
 EMAIL_PORT = 25
@@ -151,3 +155,11 @@ EMAIL_HOST_USER = "13262658232@163.com"
 EMAIL_HOST_PASSWORD = "password123"
 EMAIL_USE_TLS = False
 EMAIL_FROM = "13262658232@163.com"
+
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'localhost:9005'
+)
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
